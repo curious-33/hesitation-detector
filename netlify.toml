@@ -1,0 +1,11 @@
+[build]
+  base = "/"
+  publish = "packages/demo/.next"
+  command = "npm run build:core && npm run build:demo"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

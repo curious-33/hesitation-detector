@@ -1,12 +1,14 @@
 'use client'
 
 import { useHesitation } from 'hesitation-detector'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import MetricRow from '@/components/MetricRow'
 
 export default function DemoPage() {
 	const [showOffer, setShowOffer] = useState(false)
+	const [mounted, setMounted] = useState(false)
+	const [imageLoaded, setImageLoaded] = useState(false)
 	const { hesitationLevel, metrics, isHovering } = useHesitation(
 		'#buy-button',
 		{
@@ -16,6 +18,10 @@ export default function DemoPage() {
 	)
 
 	const shouldShowOffer = hesitationLevel > 0.7
+
+	useEffect(() => {
+		setMounted(true)
+	}, [])
 
 	return (
 		<main className='min-h-screen bg-white dark:bg-black antialiased'>
@@ -29,11 +35,19 @@ export default function DemoPage() {
 						<div className='mb-6 sm:mb-8'>
 							<div className='relative overflow-hidden rounded-lg mb-4 sm:mb-6 border border-gray-200 dark:border-gray-800'>
 								<Image
+									src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=50&h=50&fit=crop&blur=10'
+									alt='Smartphone'
+									width={800}
+									height={500}
+									className={`absolute inset-0 w-full h-64 sm:h-80 object-cover scale-110 blur-2xl transition-all duration-1000 ease-in-out ${imageLoaded ? 'opacity-0 scale-100' : 'opacity-100'}`}
+								/>
+								<Image
 									src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&h=500&fit=crop'
 									alt='Smartphone'
 									width={800}
 									height={500}
-									className='w-full h-64 sm:h-80 object-cover'
+									className={`w-full h-64 sm:h-80 object-cover transition-all duration-1000 ease-in-out ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}
+									onLoadingComplete={() => setImageLoaded(true)}
 								/>
 							</div>
 
@@ -70,11 +84,11 @@ export default function DemoPage() {
 							<button
 								id='buy-button'
 								className={`w-full bg-black dark:bg-white text-white dark:text-black font-semibold px-6 py-3 rounded-lg transition-opacity text-sm sm:text-base ${
-									isHovering ? 'opacity-80' : 'hover:opacity-90'
+									mounted && isHovering ? 'opacity-80' : 'hover:opacity-90'
 								}`}
 								onClick={() => setShowOffer(true)}
 							>
-								{isHovering ? 'Thinking about it?' : 'Add to Cart'}
+								{mounted && isHovering ? 'Thinking about it?' : 'Add to Cart'}
 							</button>
 
 							{shouldShowOffer && !showOffer && (
@@ -83,8 +97,8 @@ export default function DemoPage() {
 										Special Offer
 									</p>
 									<p className='text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3'>
-										We noticed you&apos;re interested. Get an additional 5% off right
-										now.
+										We noticed you&apos;re interested. Get an additional 5% off
+										right now.
 									</p>
 									<button className='w-full bg-black dark:bg-white text-white dark:text-black font-semibold px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity text-sm sm:text-base'>
 										Claim Discount
@@ -99,7 +113,8 @@ export default function DemoPage() {
 							</p>
 							<ol className='text-xs sm:text-sm text-gray-600 dark:text-gray-400 space-y-1.5 sm:space-y-2 list-decimal list-inside'>
 								<li>
-									Hover over the &quot;Add to Cart&quot; button and hold for 2+ seconds
+									Hover over the &quot;Add to Cart&quot; button and hold for 2+
+									seconds
 								</li>
 								<li>Move your cursor in circles while hovering</li>
 								<li>Leave and return to the button multiple times</li>
@@ -114,7 +129,7 @@ export default function DemoPage() {
 								Live Metrics
 							</h2>
 
-							<div className='mb-6 sm:mb-8 p-4 sm:p-5 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800'>
+							<div className='mb-6 sm:mb-8 p-4 sm:p-5 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800'>
 								<div className='flex justify-between items-center mb-2 sm:mb-3'>
 									<span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400'>
 										Score
@@ -162,7 +177,7 @@ export default function DemoPage() {
 									label='Scroll Count'
 									value={metrics.scrollCount.toString()}
 								/>
-								<MetricRow label='Hovering' value={isHovering ? 'Yes' : 'No'} />
+								<MetricRow label='Hovering' value={mounted && isHovering ? 'Yes' : 'No'} />
 							</div>
 						</div>
 					</div>

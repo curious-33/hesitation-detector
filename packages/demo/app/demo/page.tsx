@@ -2,6 +2,7 @@
 
 import { useHesitation } from 'hesitation-detector'
 import { useState } from 'react'
+import Image from 'next/image'
 import MetricRow from '@/components/MetricRow'
 
 export default function DemoPage() {
@@ -27,9 +28,11 @@ export default function DemoPage() {
 
 						<div className='mb-6 sm:mb-8'>
 							<div className='relative overflow-hidden rounded-lg mb-4 sm:mb-6 border border-gray-200 dark:border-gray-800'>
-								<img
+								<Image
 									src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&h=500&fit=crop'
 									alt='Smartphone'
+									width={800}
+									height={500}
 									className='w-full h-64 sm:h-80 object-cover'
 								/>
 							</div>
@@ -80,7 +83,7 @@ export default function DemoPage() {
 										Special Offer
 									</p>
 									<p className='text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3'>
-										We noticed you're interested. Get an additional 5% off right
+										We noticed you&apos;re interested. Get an additional 5% off right
 										now.
 									</p>
 									<button className='w-full bg-black dark:bg-white text-white dark:text-black font-semibold px-5 py-2.5 rounded-lg hover:opacity-90 transition-opacity text-sm sm:text-base'>
@@ -96,7 +99,7 @@ export default function DemoPage() {
 							</p>
 							<ol className='text-xs sm:text-sm text-gray-600 dark:text-gray-400 space-y-1.5 sm:space-y-2 list-decimal list-inside'>
 								<li>
-									Hover over the "Add to Cart" button and hold for 2+ seconds
+									Hover over the &quot;Add to Cart&quot; button and hold for 2+ seconds
 								</li>
 								<li>Move your cursor in circles while hovering</li>
 								<li>Leave and return to the button multiple times</li>

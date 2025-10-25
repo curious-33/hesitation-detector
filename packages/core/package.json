@@ -1,0 +1,43 @@
+{
+  "name": "hesitation-detector",
+  "version": "0.1.0",
+  "description": "Lightweight library for detecting user hesitation in React applications",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "hesitation",
+    "analytics",
+    "ux",
+    "conversion",
+    "behavioral-tracking"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  }
+}

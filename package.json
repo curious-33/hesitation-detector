@@ -1,0 +1,22 @@
+{
+  "name": "hesitation-detector-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The Empathy Layer for Frontend Commerce - Monorepo",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=packages/demo",
+    "build": "npm run build --workspaces --if-present",
+    "build:core": "npm run build --workspace=packages/core",
+    "build:demo": "npm run build --workspace=packages/demo",
+    "clean": "rm -rf packages/*/dist packages/*/.next packages/*/node_modules node_modules"
+  },
+  "keywords": ["hesitation", "analytics", "conversion", "ux", "behavioral-tracking"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}

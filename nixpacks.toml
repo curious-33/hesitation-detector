@@ -5,12 +5,7 @@ nixPkgs = ['nodejs_20']
 cmds = ['npm install']
 
 [phases.build]
-cmds = [
-  'npm run build:core',
-  'npm run build --workspace=packages/react',
-  'npm run build --workspace=packages/vue',
-  'npm run build:demo'
-]
+cmds = ['npm run build:demo']
 
 [start]
 cmd = 'cd packages/demo && npm start'

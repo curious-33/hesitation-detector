@@ -8,8 +8,18 @@ A lightweight JavaScript/React library that detects when users hesitate and enab
 
 This is a monorepo containing:
 
-- **`packages/core`** - Core hesitation detection library (TypeScript + React)
-- **`packages/demo`** - Next.js demo application showcasing the library
+- **`packages/core`** - Framework-agnostic core detection engine ([docs](./packages/core/README.md))
+- **`packages/react`** - React hooks ([docs](./packages/react/README.md))
+- **`packages/vue`** - Vue 3 composables ([docs](./packages/vue/README.md))
+- **`packages/demo`** - Next.js interactive demo application
+
+## Packages
+
+| Package | Version | Description |
+|---------|---------|-------------|
+| [@hesitation-detector/core](./packages/core) | 0.2.0 | Core detection engine (framework-agnostic) |
+| [@hesitation-detector/react](./packages/react) | 0.2.0 | React hooks for hesitation detection |
+| [@hesitation-detector/vue](./packages/vue) | 0.2.0 | Vue 3 composables for hesitation detection |
 
 ## Quick Start
 
@@ -26,26 +36,75 @@ npm run build
 
 ## Features
 
-- 🎯 Tracks micro-behaviors: hover duration, cursor jitter, refocus count, scroll patterns
-- 📊 Computes hesitation score (0-1) using rule-based heuristics
-- ⚛️ React hooks for easy integration
-- 🚀 Lightweight and performant
-- 🔧 Highly customizable triggers and thresholds
+- 🎯 **Behavioral Tracking**: Hover duration, cursor jitter, refocus count, scroll patterns
+- 📊 **Smart Scoring**: Rule-based hesitation score (0-1) with weighted metrics
+- ⚛️ **Framework Support**: React hooks and Vue 3 composables
+- 🚀 **Production-Ready**: Highly optimized for high-traffic sites
+  - Throttled mousemove tracking (60fps max)
+  - IntersectionObserver for scroll detection
+  - Passive event listeners
+  - ~4KB gzipped
+- 🔧 **Highly Customizable**: Configurable thresholds, debouncing, and tracking options
+- 📦 **Framework-Agnostic Core**: Use with any framework or vanilla JS
+- 🎨 **TypeScript Support**: Full type definitions included
 
-## Usage Example
+## Usage Examples
+
+### React
 
 ```tsx
-import { useHesitation } from "hesitation-detector";
+import { useHesitation } from '@hesitation-detector/react';
 
 function ProductButton() {
-  const { hesitationLevel } = useHesitation("#buy-button");
+  const { hesitationLevel, isHovering } = useHesitation('#buy-button');
 
-  if (hesitationLevel > 0.8) {
-    return <Offer>You deserve a 5% discount!</Offer>;
-  }
-
-  return <button id="buy-button">Buy Now</button>;
+  return (
+    <>
+      <button id="buy-button">
+        {isHovering ? 'Thinking about it?' : 'Buy Now'}
+      </button>
+      {hesitationLevel > 0.8 && (
+        <div className="offer">You deserve a 5% discount!</div>
+      )}
+    </>
+  );
 }
+```
+
+### Vue 3
+
+```vue
+<script setup>
+import { useHesitation } from '@hesitation-detector/vue';
+
+const { hesitationLevel, isHovering } = useHesitation('#buy-button');
+</script>
+
+<template>
+  <button id="buy-button">
+    {{ isHovering ? 'Thinking about it?' : 'Buy Now' }}
+  </button>
+  <div v-if="hesitationLevel > 0.8" class="offer">
+    You deserve a 5% discount!
+  </div>
+</template>
+```
+
+### Vanilla JS
+
+```typescript
+import { HesitationDetector } from '@hesitation-detector/core';
+
+const detector = new HesitationDetector('#buy-button', {
+  hoverThreshold: 3000,
+  refocusThreshold: 2,
+}, (state) => {
+  if (state.hesitationLevel > 0.8) {
+    showOffer();
+  }
+});
+
+detector.start();
 ```
 
 ## Demo
@@ -79,19 +138,22 @@ The demo showcases how small behavioral signals can be combined to detect user u
 
 ## Roadmap
 
-### Current: v0.1 ✨
+### v0.2 ✨ (Current)
 - ✅ Core hesitation detection engine
 - ✅ React Hook API (`useHesitation`)
+- ✅ Vue 3 Composition API (`useHesitation`)
 - ✅ Real-time metric tracking (hover, refocus, jitter, scroll)
 - ✅ Configurable thresholds and debouncing
 - ✅ Interactive Next.js demo
-
-### v0.2 (Coming Soon)
-- 🔄 TypeScript strict mode support
+- ✅ TypeScript strict mode support
+- ✅ Performance optimizations for high-traffic sites
+  - Throttled mousemove tracking (60fps)
+  - IntersectionObserver for scroll detection
+  - Passive event listeners
+  - Single-pass jitter calculation
+- ✅ Enhanced documentation and examples
+- ✅ Framework-specific guides (React, Vue)
 - 🔄 Additional utility hooks (`useHesitationMetrics`, `useHesitationSuggestion`)
-- 🔄 Vue.js adapter
-- 🔄 Performance optimizations for high-traffic sites
-- 🔄 Enhanced documentation and examples
 
 ### v1.0 (Q2 2025)
 - 📊 Analytics dashboard with visualization
@@ -114,6 +176,18 @@ The demo showcases how small behavioral signals can be combined to detect user u
 - 🔗 Integrations with major platforms (Shopify, WordPress, etc.)
 - 🌍 Multi-language support for global audiences
 - 🛡️ Privacy-first mode with local-only processing
+
+## Documentation
+
+- **[Performance Guide](./PERFORMANCE.md)** - Optimization best practices, benchmarks, and profiling
+- **[Advanced Examples](./EXAMPLES.md)** - Real-world use cases and integration patterns
+- **[Core API](./packages/core/README.md)** - Framework-agnostic core documentation
+- **[React Guide](./packages/react/README.md)** - React hooks and examples
+- **[Vue Guide](./packages/vue/README.md)** - Vue 3 composables and examples
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 

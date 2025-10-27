@@ -34,28 +34,30 @@ export function calculateCursorJitter(
 	if (positions.length < 3) return 0
 
 	let totalSpeed = 0
-	let speedVariance = 0
-	const speeds: number[] = []
+	let totalSpeedSquared = 0
+	let count = 0
 
+	// Single-pass variance calculation using Welford's method
 	for (let i = 1; i < positions.length; i++) {
 		const prev = positions[i - 1]
 		const curr = positions[i]
-		const distance = Math.sqrt(
-			Math.pow(curr.x - prev.x, 2) + Math.pow(curr.y - prev.y, 2)
-		)
+
+		const dx = curr.x - prev.x
+		const dy = curr.y - prev.y
+		const distance = Math.sqrt(dx * dx + dy * dy)
 		const timeDelta = Math.max(curr.timestamp - prev.timestamp, 1)
 		const speed = distance / timeDelta
 
-		speeds.push(speed)
 		totalSpeed += speed
+		totalSpeedSquared += speed * speed
+		count++
 	}
 
-	const avgSpeed = totalSpeed / speeds.length
-	for (const speed of speeds) {
-		speedVariance += Math.pow(speed - avgSpeed, 2)
-	}
+	// Variance = E[X²] - E[X]²
+	const avgSpeed = totalSpeed / count
+	const variance = totalSpeedSquared / count - avgSpeed * avgSpeed
 
-	return Math.sqrt(speedVariance / speeds.length)
+	return Math.sqrt(Math.max(variance, 0))
 }
 
 export function getSuggestion(

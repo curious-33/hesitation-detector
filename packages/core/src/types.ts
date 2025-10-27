@@ -49,7 +49,7 @@ export interface HesitationResult {
 	isHovering: boolean
 
 	/** Suggested action based on hesitation level */
-	suggestion?: 'offer' | 'help' | 'compare' | null
+	suggestion: 'offer' | 'help' | 'compare' | null
 }
 
 export interface MouseTrackingState {

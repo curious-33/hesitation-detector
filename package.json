@@ -13,6 +13,8 @@
 		"build:react": "npm run build --workspace=packages/react",
 		"build:vue": "npm run build --workspace=packages/vue",
 		"build:demo": "npm run build --workspace=packages/demo",
+		"build:libs": "npm run build:core && npm run build:react && npm run build:vue",
+		"postinstall": "npm run build:libs",
 		"start": "npm run start --workspace=packages/demo",
 		"clean": "rm -rf packages/*/dist packages/*/.next packages/*/node_modules node_modules"
 	},

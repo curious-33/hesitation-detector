@@ -1,4 +1,5 @@
-export { useHesitation } from './hooks/useHesitation'
+export { HesitationDetector } from './core/HesitationDetector'
+export type { HesitationCallback } from './core/HesitationDetector'
 
 export {
 	calculateHesitationScore,

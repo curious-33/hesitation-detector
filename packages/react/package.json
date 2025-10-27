@@ -1,7 +1,7 @@
 {
-  "name": "@hesitation-detector/core",
+  "name": "@hesitation-detector/react",
   "version": "0.2.0",
-  "description": "Framework-agnostic library for detecting user hesitation",
+  "description": "React hooks for detecting user hesitation",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -21,6 +21,8 @@
     "type-check": "tsc --noEmit"
   },
   "keywords": [
+    "react",
+    "hooks",
     "hesitation",
     "analytics",
     "ux",
@@ -29,7 +31,15 @@
   ],
   "author": "",
   "license": "MIT",
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "dependencies": {
+    "@hesitation-detector/core": "*"
+  },
   "devDependencies": {
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   }

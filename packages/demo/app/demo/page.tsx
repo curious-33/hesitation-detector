@@ -1,6 +1,6 @@
 'use client'
 
-import { useHesitation } from 'hesitation-detector'
+import { useHesitation } from '@hesitation-detector/react'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import MetricRow from '@/components/MetricRow'

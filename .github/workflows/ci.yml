@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check core
+        run: npm run type-check --workspace=packages/core --if-present
+
+      - name: Type check react
+        run: npm run type-check --workspace=packages/react --if-present
+
+      - name: Type check vue
+        run: npm run type-check --workspace=packages/vue --if-present
+
+      - name: Lint demo
+        run: npm run lint --workspace=packages/demo --if-present
+
+      - name: Build all packages
+        run: npm run build
+
+      - name: Check for build artifacts
+        run: |
+          ls -la packages/core/dist/
+          ls -la packages/react/dist/
+          ls -la packages/vue/dist/
+          ls -la packages/demo/.next/

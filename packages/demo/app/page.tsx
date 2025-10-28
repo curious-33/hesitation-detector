@@ -28,7 +28,7 @@ export default function Home() {
 				</div>
 
 				<div className='mb-16 sm:mb-20 md:mb-24'>
-					<h2 className='text-xs sm:text-sm font-semibold text-gray-500 dark:text-gray-500 uppercase tracking-wider mb-6 sm:mb-8 text-center'>
+					<h2 className='text-xl sm:text-2xl font-bold text-black dark:text-white  mb-6 sm:mb-8 text-center'>
 						Core Features
 					</h2>
 					<div className='grid sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4'>

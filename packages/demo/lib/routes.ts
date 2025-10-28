@@ -9,6 +9,7 @@ export const ROUTES = {
 		ROOT: '/demo',
 		SINGLE: '/demo/single',
 		LIST: '/demo/list',
+		ANALYTICS: '/demo/analytics',
 	},
 } as const
 
@@ -25,6 +26,11 @@ export const DEMO_NAV_ITEMS = [
 		label: 'Product List',
 		href: ROUTES.DEMO.LIST,
 		description: 'See how the detector works with multiple cards',
+	},
+	{
+		label: 'Analytics',
+		href: ROUTES.DEMO.ANALYTICS,
+		description: 'View hesitation analytics and conversion metrics',
 	},
 ] as const
 

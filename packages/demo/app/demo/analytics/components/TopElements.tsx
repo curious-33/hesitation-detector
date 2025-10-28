@@ -19,14 +19,29 @@ interface TopElementsProps {
 export default function TopElements({ data }: TopElementsProps) {
 	return (
 		<div className='bg-white dark:bg-gray-950 rounded-lg p-6 shadow-md border border-gray-100 dark:border-gray-800'>
-			<h3 className='text-lg font-semibold mb-4 text-black dark:text-white'>
-				Top Elements by Hesitation
-			</h3>
-			<ResponsiveContainer width='100%' height={300}>
-				<BarChart data={data} layout='vertical'>
+			<div className='mb-4'>
+				<h3 className='text-lg font-semibold text-black dark:text-white mb-1'>
+					Top Elements by Hesitation
+				</h3>
+				<p className='text-sm text-gray-600 dark:text-gray-400'>
+					Elements sorted by average hesitation score
+				</p>
+			</div>
+			<ResponsiveContainer width='100%' height={350}>
+				<BarChart
+					data={data}
+					layout='vertical'
+					margin={{ top: 5, right: 30, left: 120, bottom: 5 }}
+				>
 					<CartesianGrid strokeDasharray='3 3' stroke='#374151' />
 					<XAxis type='number' stroke='#9CA3AF' />
-					<YAxis dataKey='elementName' type='category' stroke='#9CA3AF' />
+					<YAxis
+						dataKey='elementName'
+						type='category'
+						stroke='#9CA3AF'
+						width={110}
+						tick={{ fontSize: 12 }}
+					/>
 					<Tooltip
 						contentStyle={{
 							backgroundColor: '#1F2937',

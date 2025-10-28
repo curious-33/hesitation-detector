@@ -88,7 +88,7 @@ export default function HesitationDistribution({
 							borderRadius: '8px',
 						}}
 						labelStyle={{ color: '#F9FAFB' }}
-						formatter={(value: number, name: string, props: any) => {
+						formatter={(value: number, _name: string, props: any) => {
 							const label = getHesitationLabel(props.payload.range)
 							return [value, label]
 						}}

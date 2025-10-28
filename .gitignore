@@ -44,7 +44,6 @@ coverage/
 # Misc
 .turbo/
 
-# package.json lock files
+# Other package manager lock files (keep package-lock.json for npm)
 yarn.lock
-package-lock.json
 pnpm-lock.yaml

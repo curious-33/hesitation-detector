@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { BsEye, BsLightning, BsGear } from 'react-icons/bs'
 
 import Feature from '@/components/Feature'
+import { ROUTES } from '@/lib/routes'
 
 export default function Home() {
 	return (
@@ -18,7 +19,7 @@ export default function Home() {
 						converts.
 					</p>
 					<Link
-						href='/demo'
+						href={ROUTES.DEMO.ROOT}
 						className='inline-flex items-center gap-2 px-5 py-2.5 bg-black dark:bg-white text-white dark:text-black rounded-lg font-medium hover:opacity-80 transition-opacity text-sm sm:text-base'
 					>
 						<span>See it in action</span>

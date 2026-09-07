@@ -34,6 +34,14 @@ npm run dev
 npm run build
 ```
 
+### Install a Single Package
+
+```bash
+npm install @hesitation-detector/core     # framework-agnostic
+npm install @hesitation-detector/react    # + React hook
+npm install @hesitation-detector/vue      # + Vue 3 composable
+```
+
 ## Features
 
 - 🎯 **Behavioral Tracking**: Hover duration, cursor jitter, refocus count, scroll patterns
@@ -106,6 +114,33 @@ const detector = new HesitationDetector('#buy-button', {
 
 detector.start();
 ```
+
+### Real-World: Cart Abandonment Prevention
+
+Combine metrics for smarter triggers — e.g. offer live chat only when the user looks confused, not just hesitant:
+
+```tsx
+import { useHesitation } from '@hesitation-detector/react';
+
+function CheckoutWithSupport() {
+  const { hesitationLevel, metrics } = useHesitation('#checkout-btn');
+
+  const isComparing = metrics.refocusCount >= 3 && metrics.hoverDuration > 5000;
+  const isConfused = metrics.cursorJitter > 120;
+
+  return (
+    <>
+      <button id="checkout-btn">Complete Purchase</button>
+      {hesitationLevel > 0.6 && isComparing && (
+        <p>Comparing options? Check our <a href="/compare">comparison guide</a>.</p>
+      )}
+      {isConfused && <button onClick={openLiveChat}>Need help? Chat with us</button>}
+    </>
+  );
+}
+```
+
+More patterns (dynamic pricing, A/B testing, multi-step forms, custom scoring) live in [EXAMPLES.md](./EXAMPLES.md).
 
 ## Demo
 
